@@ -1,5 +1,8 @@
 import jwt from "jsonwebtoken"
 import { Request, Response, NextFunction } from "express"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const tokenSecret = process.env.TOKEN_SECRET!
 const tokenExpiration = "1 day"
