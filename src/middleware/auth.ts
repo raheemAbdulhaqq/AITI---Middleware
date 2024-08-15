@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken"
 import { Request, Response, NextFunction } from "express"
 
-const tokenSecret = "letmein"
+const tokenSecret = process.env.TOKEN_SECRET!
 const tokenExpiration = "1 day"
 
 export const generateToken = function (payload: any){
