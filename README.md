@@ -1,4 +1,4 @@
-#AITI-Middleware
+AITI-Middleware
 
-##Overview - This project is a node based project
+Overview - This project is a node based project
 
