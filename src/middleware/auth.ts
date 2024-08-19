@@ -13,6 +13,14 @@ export const generateToken = function (payload: any){
     })
 }
 
+/*
+This is the auth middleware function
+
+1. It gets the jwt token from our request header(authorization)
+2. Verifies token by using the verify function from jwt module and it takes the token
+    and token scret as parameters
+
+*/
 export const auth = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.header("Authorization")?.replace("Bearer", "")
 
