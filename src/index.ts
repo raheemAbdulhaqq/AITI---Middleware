@@ -5,6 +5,7 @@ import bodyParser from "body-parser"
 import { auth } from "./middleware/auth"
 import { connectToDb } from "./database/db"
 
+
 //creating the main express application
 const app = express()
 
