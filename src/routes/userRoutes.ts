@@ -1,10 +1,11 @@
 import {Router} from "express"
-import { addProductToCart, createUser, deleteUser, getUsers, signIn, updateUser } from "../controllers/User"
+import { createUser, deleteUser, getUsers, signIn, updateUser } from "../controllers/User"
+import { rateLimitter } from "../middleware/rateLimiter"
 
 const router = Router()
 
 //Get user(s)
-router.get("/", getUsers)
+router.get("/", rateLimitter(30, 4) , getUsers)
 
 //create users
 router.post("/", createUser)
@@ -17,8 +18,5 @@ router.post("/deleteUser", deleteUser)
 
 //sign in users
 router.post("/signin", signIn)
-
-//add product to cart
-router.post("/addToCart", addProductToCart)
 
 export default router

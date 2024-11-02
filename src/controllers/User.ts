@@ -7,23 +7,24 @@ import redisClient from "../utils/redisClient"
 //Get user(s)
 export const getUsers = async (req: Request, res: Response) => {
     try {
-        //await redisClient.del("users")
+        //await redisClient.del("ip")
+        
         //check if users are available in erdis cache
-        const cachedUsers = await redisClient.get("users")
+        // const cachedUsers = await redisClient.get("users")
 
-        if (cachedUsers) {
-            //if cached users are found, return them
-            console.log("serving users from cache")
-            return res.json(JSON.parse(cachedUsers))
-        }
+        // if (cachedUsers) {
+        //     //if cached users are found, return them
+        //     console.log("serving users from cache")
+        //     return res.json(JSON.parse(cachedUsers))
+        // }
 
         //fetch users from the db if they are not found in cache
         const users = await User.find()
 
         //store the fetched users in Redis
 
-        await redisClient.set("users", JSON.stringify(users))
-        console.log("serving users from db")
+        // await redisClient.set("users", JSON.stringify(users))
+        // console.log("serving users from db")
 
         //return the users to the client
         res.json(users)
@@ -41,15 +42,15 @@ export const createUser = async (req: Request, res: Response) => {
         const userCacheKey = "newUser"
 
         //invalidate the users cache
-        await redisClient.del(userCacheKey)
+        //await redisClient.del(userCacheKey)
     
         //save new user into db
         const savedUser = await User.create(newUser)
 
-        await redisClient.set(userCacheKey, JSON.stringify(newUser))
+        //await redisClient.set(userCacheKey, JSON.stringify(newUser))
 
-        const cachedUser = await redisClient.get(userCacheKey)
-        console.log(cachedUser)
+        //const cachedUser = await redisClient.get(userCacheKey)
+        //console.log(cachedUser)
         
         res.json(savedUser)
         
@@ -149,15 +150,15 @@ export const signIn = async (req: Request, res: Response) => {
     res.status(200).json(token)
 }
 
-//add product to cart
-export const addProductToCart = async (req: Request, res: Response) => {
-    const { email, productId } = req.body
+// //add product to cart
+// export const addProductToCart = async (req: Request, res: Response) => {
+//     const { email, productId } = req.body
 
-    const foundUser = await User.findOne({ email })
+//     const foundUser = await User.findOne({ email })
 
-    foundUser?.products.push(productId)
+//     foundUser?.products.push(productId)
 
-    await foundUser?.save()
+//     await foundUser?.save()
 
-    res.status(200).json(foundUser)
-}
+//     res.status(200).json(foundUser)
+// }
